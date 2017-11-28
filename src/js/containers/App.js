@@ -1,30 +1,7 @@
-import React, { Component } from 'react'
-import {
-  BigComponent,
-  CommonTitle,
-  CssTest,
-  Tab,
-  Animation
-} from '../components'
-
-export default class App extends Component {
-  state = {
-    items: ['webpack','react','babel','npm']
-  };
+import React,{ Component } from 'react';
+export default class App extends React.Component {
   render() {
-    const {items} = this.state;
-    console.log(new Set([1,1,2,2]))
-    return (
-      <div className="box">
-        <CommonTitle title="一个简单的按钮mixin示例" />
-        <CssTest />
-        <CommonTitle title="图片转换" />
-        <BigComponent />
-        <CommonTitle title="Animation示例，点击列表删除" />
-        <Animation />
-        <CommonTitle title="Tab示例" />
-        <Tab items={items} />
-      </div>
-    )
+    const { children } =this.props;
+    return children
   }
 }

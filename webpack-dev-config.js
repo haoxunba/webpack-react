@@ -18,7 +18,7 @@ export default {
     './src/webpack-public-path',  // 服务器静态资源路径配置，保证首先载入
     'react-hot-loader/patch',
     'webpack-hot-middleware/client?reload=true',
-    path.resolve(__dirname, 'src/index.js')
+    path.resolve(__dirname, 'src/js/index.js')
   ],
   target: 'web', // necessary per https://webpack.github.io/docs/testing.html#compile-and-test
   output: {
