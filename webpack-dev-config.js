@@ -7,7 +7,7 @@
 const path = require('path');
 import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
-
+debugger
 export default {
   devServer: {
     noInfo: true // 只打印错误信息

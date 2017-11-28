@@ -1,7 +1,7 @@
 import React,{ Component } from 'react'
-import { Header, Nav, Swipe, FastNav, Title, ShopList, Message } from '../components'
+// import { Header, Nav, Swipe, FastNav, Title, ShopList, Message } from '../components'
 
-class Home extends Component {
+export default class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state =
@@ -101,27 +101,8 @@ class Home extends Component {
 
     return (
       <div ref="box" className="box">
-        <Header />
-        {
-          swipeList &&
-          <Swipe data={swipeList} hackHeight="home-swipe" {...settings}/>
-        }
-        <div className="bg-white hor pt30">
-          {fastNav.map((item, index) =>
-            <FastNav key={index} data={item}/>
-          )}
-        </div>
-        <Message data={messages}/>
-        <Title text="精品好店" linkName="查看全部" path="/shop" />
-        <div className="plr20 bg-white">
-          {shopLists.map(item =>
-            <ShopList key={item.id} data={item} />
-          )}
-        </div>
-        <Nav />
+        11
       </div>
     )
   }
 }
-
-export default Home
