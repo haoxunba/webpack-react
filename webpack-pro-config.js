@@ -7,17 +7,17 @@ var path = require('path');
 var webpack = require('webpack');
 
 var HtmlWebpackPlugin = require('html-webpack-plugin');
+var UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 // webpack中生成HTML的插件，
 
 module.exports = {
   entry: {
-  // 文件入口配置
-    index: './src/index',
+    // 配合CommonsChunkPlugin将第三方库提取成独立的chunk
     vendor: [
       'react',
       'react-dom'
-    ]
-    // 为了优化，切割代码，提取第三方库（实际上，我们将会引入很多第三方库）
+    ],
+    index: './src/index'
   },
   // 页面入口文件配置
 
@@ -40,12 +40,7 @@ module.exports = {
     // 而这个插件会让webpack在id分配上优化并保持一致性。
     // 具体是的优化是：webpack就能够比对id的使用频率和分布来得出最短的id分配给使用频率高的模块
 
-    new webpack.optimize.UglifyJsPlugin({
-    // 压缩代码
-      compressor: {
-        warnings: false
-      }
-    }),
+    new UglifyJsPlugin(),
 
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('production'),
@@ -54,10 +49,12 @@ module.exports = {
     // 很多库的内部，有process.NODE_ENV的判断语句，
     // 改为production。最直观的就是没有所有的debug相关的东西，体积会减少很多
 
-    new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.js' ),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      filename: 'vendor.js'
+    }),
     // 'vendor' 就是把依赖库(比如react react-router, redux)全部打包到 vendor.js中
     // 'vendor.js' 就是把自己写的相关js打包到bundle.js中
-    // 一般依赖库放到前面，所以vendor放第一个
 
     new HtmlWebpackPlugin({
       template:'src/index.html',
@@ -95,7 +92,7 @@ module.exports = {
   resolve: {
     // 实际就是自动添加后缀，默认是当成js文件来查找路径
     // 空字符串在此是为了resolve一些在import文件时不带文件扩展名的表达式
-    extensions: ['', '.js', 'jsx'],
+    extensions: ['*', '.js', 'jsx'],
 
     // 路径别名, 懒癌福音
     alias:{
@@ -112,45 +109,74 @@ module.exports = {
   },
 
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.js$/,
-        loaders: ['babel'],
+        use: ['babel-loader'],
         exclude: /node_modules/
       },
       {
         test: /\.scss$/,
         include: path.resolve(__dirname, 'src/js'),
-        loaders: [
-          'style',
-          'css?modules&importLoaders=1&localIdentName=[local]___[hash:base64:5]',
-          'postcss?parser=postcss-scss'
+        use: [
+          'style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true,
+              sourceMap: true,
+              importLoaders: 1 ,// 0 => 无 loader(默认); 1 => postcss-loader; 2 => postcss-loader, sass-loader,
+              localIdentName: '[local]---[hash:base64:5]'
+            }
+          },
+          {
+            loader: 'postcss-loader',
+            options: {
+              parser: 'postcss-scss'
+            }
+          }
         ]
       },
-      // 组件样式，需要私有化，单独配置
-
+      // 上面是组件内部样式，需要通过modules进行私有化设置
+      
       {
         test: /\.scss$/,
         include: path.resolve(__dirname, 'src/styles'),
-        loader: 'style!css!postcss?parser=postcss-scss'
+        use: [
+          'style-loader',
+          'css-loader',
+          {
+            loader: 'postcss-loader',
+            options: {
+              parser: 'postcss-scss'
+            }
+          }
+        ],
       },
-      // 公有样式，不需要私有化，单独配置
+      // 上面是公共样式
 
       {
         test: /\.(otf|eot|svg|ttf|woff|woff2).*$/,
-        loader: 'url?limit=10000'
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: '10000'
+            }
+          }
+        ]
       },
       {
         test: /\.(gif|jpe?g|png|ico)$/,
-        loader: 'url?limit=10000'
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: '10000'
+            }
+          }
+        ]
       }
     ]
-  },
-  postcss: function () {
-    return [
-      require('precss'),
-      require('autoprefixer'),
-      require('rucksack-css')
-    ];
   }
 };

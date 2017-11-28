@@ -12,6 +12,7 @@ export default {
   devServer: {
     noInfo: true // 只打印错误信息
   },
+  stats: "errors-only",
   entry: [
     './src/webpack-public-path',  // 服务器静态资源路径配置，保证首先载入
     'react-hot-loader/patch',
@@ -73,26 +74,62 @@ export default {
         include: path.resolve(__dirname, 'src/js'),
         use: [
           'style-loader',
-          'css?modules&sourceMap&importLoaders=1&localIdentName=[local]___[hash:base64:5]',
-          'postcss?parser=postcss-scss'
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true,
+              sourceMap: true,
+              importLoaders: 1 ,// 0 => 无 loader(默认); 1 => postcss-loader; 2 => postcss-loader, sass-loader,
+              localIdentName: '[local]---[hash:base64:5]'
+            }
+          },
+          {
+            loader: 'postcss-loader',
+            options: {
+              parser: 'postcss-scss'
+            }
+          }
         ]
       },
-      // 组件样式，需要私有化，单独配置
+      // 上面是组件内部样式，需要通过modules进行私有化设置
       
       {
         test: /\.scss$/,
         include: path.resolve(__dirname, 'src/styles'),
-        use: 'style!css!postcss?parser=postcss-scss'
+        use: [
+          'style-loader',
+          'css-loader',
+          {
+            loader: 'postcss-loader',
+            options: {
+              parser: 'postcss-scss'
+            }
+          }
+        ],
       },
-      // 公有样式，不需要私有化，单独配置
+      // 上面是公共样式
 
       {
         test: /\.(otf|eot|svg|ttf|woff|woff2).*$/,
-        use: 'url?limit=10000'
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: '10000'
+            }
+          }
+        ]
       },
       {
         test: /\.(gif|jpe?g|png|ico)$/,
-        use: 'url?limit=10000'
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: '10000'
+            }
+          }
+        ]
       }
     ]
   }
