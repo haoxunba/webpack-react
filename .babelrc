@@ -1,0 +1,16 @@
+{
+  "presets": [
+    ["env"],
+    "react",
+    "stage-2" // 如果不安装stage0、1、2版本，那么在react中使用箭头函数会报错
+  ],
+  "plugins": [
+    "react-hot-loader/babel",
+    ["transform-runtime", {  // 该部分参考官方文档
+      "helpers": false,
+      "polyfill": false,
+      "regenerator": true,
+      "moduleName": "babel-runtime"
+    }]
+  ]
+}
