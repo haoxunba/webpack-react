@@ -35,11 +35,6 @@ module.exports = {
   },
 
   plugins: [
-    new webpack.optimize.OccurrenceOrderPlugin(),
-    // webapck 会给编译好的代码片段一个id用来区分
-    // 而这个插件会让webpack在id分配上优化并保持一致性。
-    // 具体是的优化是：webpack就能够比对id的使用频率和分布来得出最短的id分配给使用频率高的模块
-
     new UglifyJsPlugin(),
 
     new webpack.DefinePlugin({

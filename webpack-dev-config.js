@@ -12,6 +12,7 @@ export default {
   devServer: {
     noInfo: true // 只打印错误信息
   },
+  devtool: 'cheap-module-eval-source-map',
   stats: "errors-only",
   entry: [
     './src/webpack-public-path',  // 服务器静态资源路径配置，保证首先载入
@@ -26,7 +27,6 @@ export default {
     filename: 'bundle.js'
   },
   plugins: [
-    new webpack.SourceMapDevToolPlugin(),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('development'), // Tells React to build in either dev or prod modes. https://facebook.github.io/react/downloads.html (See bottom)
       __DEV__: true
