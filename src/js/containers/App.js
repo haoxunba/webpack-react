@@ -1,9 +1,7 @@
-import React,{Component} from 'react';
-
-export default class App extends Component{
+import React,{ Component } from 'react';
+export default class App extends Component {
   render() {
-    return (<div>
-            {this.props.children}
-          </div>)
+    const { children } =this.props;
+    return children
   }
 }
