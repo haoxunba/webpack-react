@@ -100,7 +100,7 @@ export default class Home extends React.Component {
     const { swipeList, fastNav, shopLists, messages } = this.state
 
     return (
-      <div ref="box" className="box">
+      <div>
         11
       </div>
     )

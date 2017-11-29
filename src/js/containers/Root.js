@@ -3,10 +3,9 @@ import {Router, Route, IndexRoute} from 'react-router';
 import Home from './Home';
 import App from './App';
 
-let routes =
+export default (
   <Route path="/" component={App}>
     <IndexRoute component={Home}/>
     
   </Route>
-
-export default routes
+)

@@ -2,7 +2,7 @@ import {AppContainer} from 'react-hot-loader'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Router, browserHistory } from 'react-router'
-import {routes} from './containers/Root'
+import routes from './containers/Root';
 const rootEl = document.getElementById('app');
 
 ReactDOM.render(
