@@ -107,6 +107,14 @@ export default {
           }
         ],
       },
+      {
+        test: /\.css$/,
+        include: path.resolve(__dirname, 'src/styles'),
+        use: [
+          'style-loader',
+          'css-loader',
+        ],
+      },
       // 上面是公共样式
 
       {
