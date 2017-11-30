@@ -1,14 +1,20 @@
-import { AppContainer } from 'react-hot-loader'
-import React from 'react'
-import { render } from 'react-dom'
-import { browserHistory } from 'react-router'
-import Root from './containers/Root'
-import Redbox from 'redbox-react'
+
+import React from 'react';
+import { render } from 'react-dom';
+import { browserHistory } from 'react-router';
+import { AppContainer } from 'react-hot-loader';
+import Root from './containers/Root';
+import configStore from './redux/store';
+import {syncHistoryWithStore} from 'react-router-redux';
+
+const store = configStore();
+console.log(store)
+const history = syncHistoryWithStore(browserHistory, store);
 const rootEl = document.getElementById('app');
 
 render(
-  <AppContainer errorReporter={Redbox}>
-    <Root history={browserHistory} />
+  <AppContainer>
+    <Root history={history} store={store}/>
   </AppContainer>,
   rootEl
 )
