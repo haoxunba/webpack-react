@@ -8,7 +8,6 @@ import configStore from './redux/store';
 import {syncHistoryWithStore} from 'react-router-redux';
 
 const store = configStore();
-console.log(store)
 const history = syncHistoryWithStore(browserHistory, store);
 const rootEl = document.getElementById('app');
 

@@ -3,6 +3,7 @@ import { Route, IndexRoute } from 'react-router'
 
 import App from './containers/App';
 import Home from './containers/Home';
+import Hoc from './containers/Hoc';
 import Coupon from './containers/Coupon';
 import CouponDetail from './containers/Coupon/Detail';
 import Shop from './containers/Shop';
@@ -14,6 +15,7 @@ import NotFoundPage from './containers/404';
 export default (
   <Route path="/" component={App}>
     <IndexRoute component={Home}/>
+    <Route path="hoc" component={Hoc}/>
     <Route path="coupon">
       <IndexRoute component={Coupon}/>
       <Route path=":id" component={CouponDetail}/>
