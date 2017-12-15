@@ -12,14 +12,20 @@ export default class Parent extends React.Component {
     super(props);
     this.state = {
       parentValue: ''
-    }
+    };
+  }
+
+  handleParentChange(e) {
+    this.setState({
+      parentValue: e.target.value
+    })
   }
 
   render() {
     return (
       <div>
-        <input type="text" value={this.state.parentValue} onChange={this.handleParentChange}/>
-        <Child/>
+        <input type="text" value={this.state.parentValue} onChange={(e)=>this.handleParentChange(e)}/>
+        <Child parentValue={this.state.parentValue}/>
       </div>
     )
   }
