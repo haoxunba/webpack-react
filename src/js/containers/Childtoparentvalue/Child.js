@@ -5,29 +5,34 @@ export default class Child extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      childValue: this.props.parentValue
-    }
+      childValue: ''
+    };
   }
 
-  // componentWillMount() {
-  //   this.setState({
-  //     childValue: this.props.parentValue
-  //   })
-  // }
-
+  
   componentWillReceiveProps(nextProps) {
     if(this.props.parentValue != nextProps.parentValue) {
       this.setState({
-        childValue: nextProps.parentValues
+        childValue: nextProps.parentValue
       })
+      
     }
   }
 
-  handleChildChange() {
-
+  handleChildChange(e) {
+    this.setState({
+      childValue: e.target.value
+    },()=>{
+      this.props.parentChange(e.target.value);
+    })
   }
 
+
   render() {
-    return <input type="text" value={this.state.childValue} onChange={this.handleChildChange}/>
+    return (
+      <div>
+        <input type="text" value={this.state.childValue || ''} onChange={(e)=>this.handleChildChange(e)}/>
+      </div>
+    )
   }
 }
