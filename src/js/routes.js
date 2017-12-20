@@ -6,6 +6,7 @@ import Home from './containers/Home';
 import Hoc from './containers/Hoc';
 import Parent from './containers/Refs/Parent';
 import Childtoparent from './containers/Childtoparentvalue/Parent'; 
+import AntdStyleReset from './containers/AntdsStyleReset/AntdStyleReset';
 
 export default (
   <Route path="/" component={App}>
@@ -13,5 +14,6 @@ export default (
     <Route path="hoc" component={Hoc}/>
     <Route path='refs' component={Parent}/>
     <Route path='childtoparent' component={Childtoparent} />
+    <Route path='antdStyleReset' component={AntdStyleReset}/>
   </Route>
 );
