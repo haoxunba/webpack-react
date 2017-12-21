@@ -1,0 +1,19 @@
+.title {
+  color: yellow;
+}
+
+.title2 {
+  font-size: 40px;
+}
+
+:global(.globalTitle) {
+  background-color: blue;
+}
+
+.styleTitle {
+  color: red;
+}
+
+.styleTitle2 {
+  font-size: 60px;
+}
