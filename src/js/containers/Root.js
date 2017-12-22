@@ -4,10 +4,11 @@ import { Router } from 'react-router';
 import {Provider} from 'react-redux';
 // import '../../styles/normalize.scss'
 // import '../../styles/app.scss'
-import '../../styles/antdStyleReset.scss'
+
 // import '../../styles/font.scss'
 // import '../../styles/animations.scss'
 import '../../styles/antd-mobile.css'
+import '../../styles/antdStyleReset.scss'
 // import 'antd-mobile/dist/antd-mobile.css'
 import '../../styles/common.scss';
 
